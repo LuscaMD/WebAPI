@@ -17,6 +17,7 @@ namespace WebAPI.Model
         {
             this.name = name ?? throw new ArgumentNullException(nameof(name));
             this.age = age;
+
             this.photo = photo;
         }
     }

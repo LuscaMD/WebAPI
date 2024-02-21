@@ -18,7 +18,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult Add(EmployeeViewModel employeeView)
         {
-            var employee = new Employee(employeeView.Name, employeeView.Age, null);
+            var employee = new Employee(employeeView.Name, employeeView.Age, "");
 
             _employeeRepository.Add(employee);
 
