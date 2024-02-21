@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebAPI.Model;
 using WebAPI.ViewModel;
 
@@ -15,6 +16,7 @@ namespace WebAPI.Controllers
             _employeeRepository = employeeRepository ?? throw new ArgumentNullException(nameof(employeeRepository));
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Add(EmployeeViewModel employeeView)
         {
@@ -25,6 +27,7 @@ namespace WebAPI.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Get()
         {
