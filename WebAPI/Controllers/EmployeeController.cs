@@ -32,6 +32,7 @@ namespace WebAPI.Controllers
             return Ok();
         }
 
+        //[Authorize]
         [HttpPost]
         [Route("{id}/download")]
         public IActionResult DownloadPhoto(int id)
@@ -44,9 +45,9 @@ namespace WebAPI.Controllers
 
         //[Authorize]
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(int pageNumber, int pageQuantity)
         {
-            var employee = _employeeRepository.Get();
+            var employee = _employeeRepository.Get(pageNumber, pageQuantity);
 
             return Ok(employee);
         }
