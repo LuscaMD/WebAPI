@@ -1,4 +1,4 @@
-﻿namespace WebAPI.ViewModel
+﻿namespace WebAPI.Application.ViewModel
 {
     public class EmployeeViewModel
     {
