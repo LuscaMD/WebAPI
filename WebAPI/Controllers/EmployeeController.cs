@@ -10,24 +10,31 @@ namespace WebAPI.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly ILogger <EmployeeController> _logger;
 
-        public EmployeeController(IEmployeeRepository employeeRepository)
+        public EmployeeController(IEmployeeRepository employeeRepository, ILogger<EmployeeController> logger)
         {
             _employeeRepository = employeeRepository ?? throw new ArgumentNullException(nameof(employeeRepository));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         //[Authorize]
         [HttpPost]
         public IActionResult Add([FromForm] EmployeeViewModel employeeView)
         {
-            var filePath = Path.Combine("Storage", employeeView.Photo.FileName);
+            var filePath = string.Empty;
+            if (employeeView.Photo != null)
+            {
+                filePath = Path.Combine("Storage", employeeView.Photo.FileName);
 
-            using Stream fileStream = new FileStream(filePath, FileMode.Create);
-            employeeView.Photo.CopyTo(fileStream);
+                using Stream fileStream = new FileStream(filePath, FileMode.Create);
+                employeeView.Photo.CopyTo(fileStream);
+            }
 
-            var employee = new Employee(employeeView.Name, employeeView.Age, filePath);
+            var employee = new Employee(employeeView.Name, employeeView.Age, filePath); 
 
             _employeeRepository.Add(employee);
+            _logger.LogInformation("Um funcionário foi cadastrado.");
 
             return Ok();
         }
