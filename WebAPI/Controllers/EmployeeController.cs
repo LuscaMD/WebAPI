@@ -54,7 +54,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult Get(int pageNumber, int pageQuantity)
         {
-            if(pageNumber == 0 || pageQuantity == 0)
+            if(pageNumber == 0 && pageQuantity == 0)
             {
                 throw new Exception("Não foi informado os parâmetros necessários.");
             }
